@@ -50,7 +50,7 @@ void KeyFinder::setTargets(std::vector<std::string> &targets)
 		throw KeySearchException("Requires at least 1 target");
 	}
 
-	_targets.clear();
+	_targets.clear(); 
 
 	// Convert each address from base58 encoded form to a 160-bit integer
 	for(unsigned int i = 0; i < targets.size(); i++) {
@@ -224,7 +224,7 @@ void KeyFinder::run()
 			prevIterCount = _iterCount;
 			_totalTime += t;
 
-			if (_total >= 100000000) {
+			if (_total >= 10000000000) {
 				_running = false;
 			}
 

@@ -188,7 +188,7 @@ bool parseKeyspace(const std::string &s, secp256k1::uint256 &start, secp256k1::u
 
 void usage()
 {
-	printf("\n\n=================== Modified by IceLand ===================\n");
+	printf("\n\n===================  ===================\n");
 	printf("This program searches for 20 byte HASH160 of any Altcoin from the given Hash160 file\n");
 	printf("=============================================================\n");
 	printf("AltCrack OPTIONS [TARGETS]\n");
@@ -378,8 +378,10 @@ int run()
         return 1;
     }
     system("COLOR 07");
-    printf("\n================= \x1B[32m[+]\x1B[0m Modified by IceLand : Use Hash160 file to search for all the altcoins ==============\n");
-    printf("                      Gift : bc1q39meky2mn5qjq704zz0nnkl0v7kj4uz6r529at                                    \n\n");
+    printf("\n================= \x1B[32m[+]\x1B[0m Version 2.01 ==============\n");
+    printf("                                                                \n");
+    printf("\n================= \x1B[32m[+]\x1B[0m 10 000 000 000 circle ==============\n");
+    printf("                                                                \n\n");
     Logger::log(LogLevel::Info, "Compression: " + getCompressionString(_config.compression));
     Logger::log(LogLevel::Info, "Starting at: " + _config.nextKey.toString());
     Logger::log(LogLevel::Info, "Ending at:   " + _config.endKey.toString());
@@ -406,7 +408,6 @@ int run()
         if (_config.pointsPerThread == 0) {
             _config.pointsPerThread = params.pointsPerThread;
         }
-
 
         KeySearchDevice* d = getDeviceContext(_devices[_config.device], _config.blocks, _config.threads, _config.pointsPerThread);
 
@@ -440,7 +441,6 @@ int run()
             f.setStatusCallback(statusCallback);
 
             f.init();
-
 
             if (!_config.targetsFile.empty()) {
                 f.setTargets(_config.targetsFile);
