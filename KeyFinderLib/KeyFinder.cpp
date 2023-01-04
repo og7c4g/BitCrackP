@@ -225,7 +225,7 @@ void KeyFinder::run()
 			prevIterCount = _iterCount;
 			_totalTime += t;
 
-			if (_total >= 10000000000) {
+			if (_total >= 100000000) {
 				_running = false;
 			}
 

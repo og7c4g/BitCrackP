@@ -377,11 +377,7 @@ int run()
         Logger::log(LogLevel::Error, "device " + util::format(_config.device) + " does not exist");
         return 1;
     }
-    system("COLOR 07");
-    printf("\n================= \x1B[32m[+]\x1B[0m Version 2.01 ==============\n");
-    printf("                                                                \n");
-    printf("\n================= \x1B[32m[+]\x1B[0m 10 000 000 000 circle ==============\n");
-    printf("                                                                \n\n");
+
     Logger::log(LogLevel::Info, "Compression: " + getCompressionString(_config.compression));
     Logger::log(LogLevel::Info, "Starting at: " + _config.nextKey.toString());
     Logger::log(LogLevel::Info, "Ending at:   " + _config.endKey.toString());
@@ -409,31 +405,9 @@ int run()
             _config.pointsPerThread = params.pointsPerThread;
         }
 
-        KeySearchDevice* d = getDeviceContext(_devices[_config.device], _config.blocks, _config.threads, _config.pointsPerThread);
-
-        KeyFinder f(_config.nextKey, _config.endKey, _config.compression, d, _config.stride, _config.randomMode);
-
-        f.setResultCallback(resultCallback);
-        f.setStatusInterval(_config.statusInterval);
-        f.setStatusCallback(statusCallback);
-
-        f.init();
-
-        if (!_config.targetsFile.empty()) {
-            f.setTargets(_config.targetsFile);
-        }
-        else {
-            f.setTargets(_config.targets);
-        }
-
-        f.run();
-        delete d;
-
-        while (true) {
+        //while (true) {
             try {
             // Get device context
-            //KeySearchDevice* d = getDeviceContext(_devices[_config.device], _config.blocks, _config.threads, _config.pointsPerThread);
-            //CLKeySearchDevice generateStartingPoints();
 
             KeySearchDevice* d = getDeviceContext(_devices[_config.device], _config.blocks, _config.threads, _config.pointsPerThread);
 
@@ -460,10 +434,9 @@ int run()
                 Logger::log(LogLevel::Info, "Error: " + ex.msg);
                 return 1;
             }
-        }
+        //}
 
         return 0;
-    
 }
 
 /**
@@ -501,6 +474,13 @@ bool parseShare(const std::string &s, uint32_t &idx, uint32_t &total)
 
 int main(int argc, char **argv)
 {
+
+    system("COLOR 07");
+    printf("\n================= \x1B[32m[+]\x1B[0m Version 2.03 ==============\n");
+    //printf("                                                                \n");
+    printf("\n================= \x1B[32m[+]\x1B[0m 10 000 000 000 circle ==============\n");
+    printf("                                                                \n\n");
+
 	bool optCompressed = false;
 	bool optUncompressed = false;
     bool listDevices = false;
@@ -706,6 +686,7 @@ int main(int argc, char **argv)
         _config.startKey = startPos;
     }
 
+
 	// Check option for compressed, uncompressed, or both
 	if(optCompressed && optUncompressed) {
 		_config.compression = PointCompressionType::BOTH;
@@ -718,6 +699,7 @@ int main(int argc, char **argv)
     if(_config.checkpointFile.length() > 0) {
         readCheckpointFile();
     }
-
-    return run();
+    while (true) {
+        run();
+    }
 }
