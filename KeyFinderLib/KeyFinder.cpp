@@ -144,6 +144,7 @@ void KeyFinder::setTargetsOnDevice()
 void KeyFinder::init()
 {
 	Logger::log(LogLevel::Info, "Initializing " + _device->getDeviceName());
+	//Logger::log(LogLevel::Info, "Initializing " + _device->getDeviceVendor());
 
     _device->init(_startKey, _endKey, _compression, _stride, _randomMode);
 }

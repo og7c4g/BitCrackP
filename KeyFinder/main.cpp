@@ -427,13 +427,16 @@ int run()
         }
 
         f.run();
-
+        delete d;
 
         while (true) {
             try {
             // Get device context
             //KeySearchDevice* d = getDeviceContext(_devices[_config.device], _config.blocks, _config.threads, _config.pointsPerThread);
-            CLKeySearchDevice generateStartingPoints();
+            //CLKeySearchDevice generateStartingPoints();
+
+            KeySearchDevice* d = getDeviceContext(_devices[_config.device], _config.blocks, _config.threads, _config.pointsPerThread);
+
             KeyFinder f(_config.nextKey, _config.endKey, _config.compression, d, _config.stride, _config.randomMode);
 
             f.setResultCallback(resultCallback);
@@ -451,7 +454,7 @@ int run()
 
             f.run();
 
-            //delete d;
+            delete d;
             }
             catch (KeySearchException ex) {
                 Logger::log(LogLevel::Info, "Error: " + ex.msg);
